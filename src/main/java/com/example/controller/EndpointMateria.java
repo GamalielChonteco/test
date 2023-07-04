@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bo.ISanPablo;
 import com.example.dto.MateriaDTO;
+import com.example.dto.PostDto;
 import com.example.dto.Response;
 import com.example.dto.UsuariosResponseDto;
 
@@ -76,5 +80,18 @@ public class EndpointMateria {
 		}
 
 		return usuariosResponseDto;
+	}
+
+	@GetMapping("v1/post/obtenerPost")
+	public List<PostDto> obtenerPost(@RequestParam int postId) {
+		List<PostDto> postsDto = new ArrayList<PostDto>();
+
+		try {
+			postsDto = iSanPablo.obtenerPostsById(postId);
+		} catch (Exception e) {
+			
+		}
+
+		return postsDto;
 	}
 }

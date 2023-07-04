@@ -1,12 +1,17 @@
 package com.example.bo.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.example.bo.ISanPablo;
+import com.example.dto.PostDto;
 import com.example.dto.Response;
 import com.example.dto.UsuariosResponseDto;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kong.unirest.HttpResponse;
@@ -100,5 +105,27 @@ public class ZimatopesImpl implements ISanPablo {
 		}
 
 		return usuariosDto;
+	}
+
+	@Override
+	public List<PostDto> obtenerPostsById(int id) throws Exception {
+		List<PostDto> postsDto = new ArrayList<PostDto>();
+
+		try {
+			HttpResponse<String> response = Unirest.get("https://jsonplaceholder.typicode.com/comments")
+											.header("Content-Type", "application/json")
+											.queryString("postId", id)
+											.asString();
+
+			ObjectMapper mapper = new ObjectMapper();
+			List<PostDto> listResp = mapper.readValue(response.getBody(), new TypeReference<List<PostDto>>(){});
+
+			postsDto = listResp;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			log.warn("obtenerPostsById", e);
+		}
+
+		return postsDto;
 	}
 }

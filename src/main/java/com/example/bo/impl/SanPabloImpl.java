@@ -1,9 +1,12 @@
 package com.example.bo.impl;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.example.bo.ISanPablo;
+import com.example.dto.PostDto;
 import com.example.dto.Response;
 import com.example.dto.UsuariosResponseDto;
 
@@ -40,6 +43,11 @@ public class SanPabloImpl implements ISanPablo {
 
 	@Override
 	public UsuariosResponseDto getUsuarios(int page) throws Exception {
+		return null;
+	}
+
+	@Override
+	public List<PostDto> obtenerPostsById(int id) throws Exception {
 		return null;
 	}
 }
